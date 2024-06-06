@@ -22,14 +22,12 @@ void pressControl(int i) {
       digitalWrite(valW[i], HIGH);
       analogWrite(chamPump[i], 150);
       PWM[findPump[i]] = 150;
-      PWMCh = true;
       break;
     
     case CRE:
       // Creep deflation
       analogWrite(chamPump[i], 100);
       PWM[findPump[i]] = 100;
-      PWMCh = true;
 
       digitalWrite(valW[i], LOW);
       delay(5);
@@ -61,7 +59,7 @@ void inflateW(int i) {
 
   if (setP[i] <= 28) {
     // Constant for low values
-    localW = 82;
+    localW = 72;
   } else {
     // Exponential
     localW = (1.5122 * exp(0.0844 * (setP[i] - 48.39)) + 62) + 20;
@@ -73,5 +71,4 @@ void inflateW(int i) {
   localW = localW + kI * iPressure[i];
 
   PWM[findPump[i]] = max(min(localW, 255), 0);
-  PWMCh = true;
 }
